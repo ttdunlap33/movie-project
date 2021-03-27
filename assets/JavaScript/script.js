@@ -1,3 +1,47 @@
+var apiKeyTaste = "406643-ThomasTD-KL55K15Z";
+var apiKeyPoster = "5cecfea7";
+var movieName = "Spider-Man";
+
+function getDataTaste () {
+	var getTasteUrl = `https://tastedive.com/api/similar?info=1&limit=5&q=${movieName}&k=${apiKeyTaste}`;
+
+	$.ajax({
+		url: getTasteUrl,
+		method: 'GET'
+	}).then (function (response) {
+		console.log("Taste");
+		console.log(response);
+		console.log(response.Similar.Info[0].yUrl);
+		$('.ytLink').attr('src', `${response.Similar.Info[0].yUrl}`)
+	} )
+};
+
+
+
+function getDataPoster () {
+	var getTasteUrl = `http://www.omdbapi.com/?t=${movieName}&apikey=${apiKeyPoster}`;
+	
+	$.ajax({
+		url: getTasteUrl,
+		method: 'GET'
+	}).then (function (response) {
+		// console.log("Poster");
+		console.log(response.Poster);
+		// console.log($('.posterScr').attr('src'));
+		$('.card-header').text(`${response.Title}`)
+		$('.posterScr').attr('src', `${response.Poster}`)
+	} )
+};
+
+getDataPoster();
+getDataTaste();
+
+
+
+
+
+
+
 //https://tastedive.com/api/similar?{query string}
 //# Example query - recommendations of movie Guardians Of The Galaxy Vol. 2.
 //https://tastedive.com/api/similar?q=Guardians Of The Galaxy Vol. 2
@@ -37,5 +81,4 @@
 //             "yID": "QwievZ1Tx-8"
 //         }
 //     ]
-// }
 // }
