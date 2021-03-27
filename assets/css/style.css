@@ -1,0 +1,14 @@
+body {
+    background-image: url(C:\Users\killj\Gitlab\movie-project\sydney-rae-cjGBAMQWpGY-unsplash.jpg);
+ }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+
+.navbar{
+    border-bottom: 5px solid black;
+}
+ .card {
+     margin: 15%;
+ }
+
+ .card button:hover {
+     box-shadow: 2px solid rgb(59, 59, 59);
+ }
