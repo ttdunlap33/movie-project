@@ -49,7 +49,7 @@
       <div class="card">
         <div class="card-content">
           <p class="title">This is what we do.</p>
-          <button class="button is-small is-outlined is-centered">
+          <button class="button is-small is-outlined is-centered" onclick="getMovieName()">
             Continue
           </button>
         </div>
@@ -58,8 +58,8 @@
 			
 			<!-- Search Bar  -->
       <div class="control">
-        <input class="input is-rounded is-small" type="text" placeholder="Normal
-        input" autofocus = "true">
+        <input id="movieInput" class="input is-rounded is-small" type="text" placeholder="Normal
+        input" autofocus = "true" onkeypress="keyPress(event)">
       </div>
 			<!-- End of search bar -->
 
@@ -76,6 +76,8 @@
             </figure>
 						
           </div>
+          <div id="currentMovie">
+          </div>
           <div class="content">
 						<iframe
 							class="ytLink"
@@ -87,6 +89,8 @@
               allowfullscreen>
 							</iframe>
 							</div>
+          </div>
+          <div id="relatedMovies">
           </div>
         </div>
       </div>
