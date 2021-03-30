@@ -1,4 +1,5 @@
 body {
+<<<<<<< HEAD
     background-image: url(C:\Users\killj\Gitlab\movie-project\sydney-rae-cjGBAMQWpGY-unsplash.jpg);
  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 
@@ -12,3 +13,30 @@ body {
  .card button:hover {
      box-shadow: 2px solid rgb(59, 59, 59);
  }
+=======
+  font-family: "Ubuntu, serif";
+  background-image: url("/assets/images/graystone.jpg");
+  background-repeat: cover;
+  background-position: top center;
+}
+
+.navbar {
+  border-bottom: 2px solid black;
+  background-color: white;
+}
+
+.hero {
+  /* background-image: url("./assets/images/6284-seamless-dirty-grunge-multilayered-dark-gray-stone-texture-background.jpg"); */
+  background-size: cover;
+}
+
+.card {
+  margin: 15%;
+  border-radius: 30px;
+}
+
+.posterScr {
+    width: 128px 128px;
+}
+
+>>>>>>> 337da8de0ad0c3a42907d29305502e67a69ec602
