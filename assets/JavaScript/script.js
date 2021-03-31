@@ -24,29 +24,25 @@ function getDataTaste (movieName) {
 			q: movieName,
 			type: "movie",
 			info: 1,
-			limit: 5,
+			limit: 6,
 		},
 		dataType: "jsonp"
 	}).then (function (response) {
-		// document.getElementById('relatedMovies').innerHTML = ''
-
+		
 		var similar = response.Similar
+		console.log(similar);
 		var info = similar.Info[0]
 		var type = info.Type
 		if (type !== "unknown") {
-			var name = info.Name
-			var wTeaser = info.wTeaser
-			var wUrl = info.wUrl
-			var yID = info.yID
-			var yUrl = info.yUrl
-
-			// Set youtube teaser
-			// $('#currentMovie').attr()
-			$('.ytLink').attr('src', `${yUrl}`)
+			// var name = info.Name
+			// var wTeaser = info.wTeaser
+			// var wUrl = info.wUrl
+			// var yID = info.yID
+			// var yUrl = info.yUrl
 
 			var results = similar.Results
+			console.log(results);
 			for (i = 0; i < results.length; i++) {
-				console.log(results.length);
 				var currentResult = results[i];
 
 				var currentName = currentResult.Name
@@ -55,38 +51,43 @@ function getDataTaste (movieName) {
 				var currentYID = currentResult.yID
 				var currentYUrl = currentResult.yUrl
 
+				getDataPoster(currentName)
+
 				// Code to display related movies here
-				// var relatedDiv = document.createElement("div")
 				var divCardEl = $('<div>');
 				divCardEl.attr('class', 'card');
 				cardCont.append(divCardEl);
-				// h3
-				// var relatedName = document.createElement("h6")
+
+				var divCardContent = $('<div>');
+				divCardContent.attr('class', 'card-content');
+				divCardEl.append(divCardContent);
+
 				var divName = $('<div>');
-				// relatedName.innerText = currentName
+				divName.attr('class', 'card-header');
 				divName.text(currentName);
-				// relatedDiv.append(relatedName)
-				divCardEl.append(divName)
-				// p
-				// var relatedWTeaser = document.createElement("p")
+				divCardContent.append(divName)
+
+				var divImgCont = $('<div>');
+				divImgCont.attr('class', 'card-image');
+				divCardContent.append(divImgCont);
+
+				var divFigure = $('<figure>');
+				divFigure.attr('class', 'image is-3by4 poster');
+				divCardContent.append(divFigure);
+
+				var divImg = $('<img>');
+				divImg.attr('class', 'posterSrc');
+				divCardContent.append(divImg);
+
 				var pTeaser = $('<p>');
-				// relatedWTeaser.innerText = currentWTeaser
 				pTeaser.text(currentWTeaser);
-				// relatedDiv.append(relatedWTeaser)
-				divCardEl.append(pTeaser)
-				// a
-				// var relatedWUrl = document.createElement("a")
+				divCardContent.append(pTeaser)
+
 				var aWikiUrl = $('<a>');
-				// relatedWUrl.innerText = currentWUrl
 				aWikiUrl.text(`${movieName} Wikipedia Article`)
 				aWikiUrl.attr('src', currentWUrl);
-				// relatedDiv.append(relatedWUrl)
-				divCardEl.append(aWikiUrl);
-				// p
-				// var relatedYID = document.createElement("p")
-				// relatedYID.innerText = currentYID
-				// relatedDiv.append(relatedYID)
-				// iframe
+				divCardContent.append(aWikiUrl);
+
 				var relatedClip = document.createElement("iframe")
 				relatedClip.setAttribute("width", "500")
 				relatedClip.setAttribute("height", "300")
@@ -94,30 +95,14 @@ function getDataTaste (movieName) {
 				relatedClip.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture")
 				relatedClip.setAttribute("allowfullscreen", "")
 				relatedClip.setAttribute("src", currentYUrl)
-				divCardEl.append(relatedClip);
-				
-				// $('#relatedMovies').append(relatedDiv)
-
-				// var prevSearch = function(prevSearch){
-
-				// 	prevSearchEl = document.createElement("button");
-				// 	prevSearchEl.textContent = prevSearch;
-				// 	prevSearchEl.classList = "d-flex w-100 btn-light border p-3";
-				// 	prevSearchEl.setAttribute("data-city",prevSearch)
-				// 	prevSearchEl.setAttribute("type", "submit");
-				
-				// 	prevSearchBtn.prepend(prevSearchEl);
-				// }
+				divCardContent.append(relatedClip);
 				
 			}
 		}
-
-
 	} )
 
-	getDataPoster(movieName)
+	// getDataPoster();
 };
-
 
 function getDataPoster (movieName) {
 	var getTasteUrl = `https://www.omdbapi.com/?t=${movieName}&apikey=${apiKeyPoster}`;
@@ -126,11 +111,8 @@ function getDataPoster (movieName) {
 		url: getTasteUrl,
 		method: 'GET'
 	}).then (function (responsePoster) {
-		$('.card-header').text(`${responsePoster.Title}`);
-		$('.posterScr').attr('src', `${responsePoster.Poster}`);
-		$('.card').attr('style', 'display: block');
-	} )
 
+	} )
 };
 
 
