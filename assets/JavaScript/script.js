@@ -1,16 +1,52 @@
 const apiKeyTaste = "406643-ThomasTD-KL55K15Z";
 const apiKeyPoster = "5cecfea7";
 
+var pastSearches = [];
+
+var prevSearchBtn = document.querySelector("#searchHistory")
+
 var cardCont = $('.cardContainer');
 $('#movieInput').keypress(function (event) {
 	if (event.which == 13) {
 		var movieName = $(this).val();
-		getDataTaste(movieName);
-		cardCont.empty();
+		getDataTaste(movieName, true);
 	}
 });
 
-function getDataTaste (movieName) {
+function getMovieName() {
+	var movieName = $('#movieInput').val();
+	getDataTaste(movieName, true);
+}
+// loading search history - populate buttons
+function loadSearchHistory() {
+	pastSearches = JSON.parse(localStorage.getItem("movies"))
+	console.log(pastSearches)
+	for (i = 0; i < pastSearches.length; i++) {
+		saveSearch(pastSearches[i])
+	}
+}
+
+loadSearchHistory();
+
+function saveSearch(movieName) {
+	prevSearchEl = document.createElement("button");
+    prevSearchEl.textContent = movieName;
+    // prevSearchEl.classList = "d-flex w-100 btn-light border p-3";
+    prevSearchEl.setAttribute("movie", movieName)
+    prevSearchEl.setAttribute("type", "submit");
+
+	prevSearchBtn.prepend(prevSearchEl)
+}
+
+function appendMovie(movieName) {
+	// saving searches to movie var
+	pastSearches.push(movieName)
+    localStorage.setItem("movies", JSON.stringify(pastSearches))
+}
+
+function getDataTaste (movieName, saveMovie) {
+	cardCont.empty();
+
 	var getTasteUrl = `https://tastedive.com/api/similar`;
 	// var getTasteUrl = `https://tastedive.com/api/similar?info=1&limit=5&q=${movieName}&k=${apiKeyTaste}`;
 
@@ -34,6 +70,12 @@ function getDataTaste (movieName) {
 		var info = similar.Info[0]
 		var type = info.Type
 		if (type !== "unknown") {
+
+			if (saveMovie) {
+				saveSearch(movieName);
+				appendMovie(movieName);
+			}
+
 			// var name = info.Name
 			// var wTeaser = info.wTeaser
 			// var wUrl = info.wUrl
@@ -84,7 +126,7 @@ function getDataTaste (movieName) {
 				divCardContent.append(pTeaser)
 
 				var aWikiUrl = $('<a>');
-				aWikiUrl.text(`${movieName} Wikipedia Article`)
+				aWikiUrl.text(`${currentName} Wikipedia Article`)
 				aWikiUrl.attr('src', currentWUrl);
 				divCardContent.append(aWikiUrl);
 
@@ -111,7 +153,7 @@ function getDataPoster (movieName) {
 		url: getTasteUrl,
 		method: 'GET'
 	}).then (function (responsePoster) {
-
+		
 	} )
 };
 
@@ -164,3 +206,57 @@ function getDataPoster (movieName) {
 //         }
 //     ]
 // }
+
+// var saveSearch = function(){
+//     localStorage.setItem("movieName", JSON.stringify(movieName));
+// };
+
+
+// var prevSearchHandler = function(event){
+//     var movieName = event.target.getAttribute("data-movieName")
+//     if(movieName){
+//         getDataTaste(movieName);
+//     }
+// }
+
+
+// function updateCard() {
+//     $('.time-block').each(function () {
+//         var hour = $(this).attr('id');
+//         var currentHour = moment().hour()
+//         console.log(currentHour)
+//         console.log(hour)
+//         if (+hour < currentHour) {
+//             $(this).addClass('past');
+
+//         } else if (+hour === currentHour) {
+//             $(this).addClass('present');
+//         } else {
+//             $(this).removeClass('present');
+//             $(this).addClass('future');
+//         }
+//     }
+//     )
+// }
+// updateHours();
+
+// var prevSearch = function(prevSearch){
+ 
+//     prevSearchEl = document.createElement("button");
+//     prevSearchEl.textContent = prevSearch;
+//     prevSearchEl.classList = "d-flex w-100 btn-light border p-3";
+//     prevSearchEl.setAttribute("data-city",prevSearch)
+//     prevSearchEl.setAttribute("type", "submit");
+
+//     prevSearchBtn.prepend(prevSearchEl);
+// }
+
+
+var prevSearchHandler = function(event){
+    var movie = event.target.getAttribute("movie")
+    if (movie){
+        getDataTaste(movie, false);
+    }
+}
+
+prevSearchBtn.addEventListener("click", prevSearchHandler)

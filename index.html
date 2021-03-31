@@ -46,8 +46,8 @@
 		<!-- landing card -->
     </header>
     <main class="columns is-centered hero">
-      <div class="card">
-        <div class="card-content">
+      <div class="card" role="button">
+        <div class="card-content" >
           <p class="title">This is what we do.</p>
           <button class="button is-small is-outlined is-centered" onclick="getMovieName()">
             Continue
@@ -58,10 +58,12 @@
 			
 			<!-- Search Bar  -->
       <div class="container is-large control has-icons-left">  
-        <input id="movieInput" class="input is-rounded is-medium" type="text" placeholder="Type a movie then press enter..." autofocus = "true" onkeypress="keyPress(event)">
+        <input name="movieInput" id="movieInput" class="input is-rounded is-medium form-input" type="text" placeholder="Type a movie then press enter..." autofocus = "true">
         <span class="icon is-small is-left">
           <i class="fas fa-film"></i>
         </span>
+      </div>
+      <div id="searchHistory">
       </div>
 			<!-- End of search bar -->
 
