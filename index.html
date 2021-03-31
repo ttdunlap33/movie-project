@@ -41,15 +41,19 @@
           </a>
         </div>
       </nav>
+            <!--Random Movie Button-->
+            <div class="container is-fluid">
+              <button id="randomSelect" class="button is-normal">Random Movie Suggestion</button>
+            </div>
 			<!-- end of nav bar -->
 
 		<!-- landing card -->
     </header>
-    <main class="columns is-centered hero">
-      <div class="card">
+    <main class="columns is-centered hero is-fullheight-with-navbar">
+      <div class="card hero-body">
         <div class="card-content">
           <p class="title">This is what we do.</p>
-          <button class="button is-small is-outlined is-centered">
+          <button class="button is-small is-outlined is-centered" onclick="getMovieName()">
             Continue
           </button>
         </div>
@@ -57,9 +61,11 @@
 			<!-- <end of landing card -->
 			
 			<!-- Search Bar  -->
-      <div class="control">
-        <input class="input is-rounded is-small" type="text" placeholder="Normal
-        input" autofocus = "true">
+      <div class="container is-large control has-icons-left">  
+        <input id="movieInput" class="input is-rounded is-medium" type="text" placeholder="Search" autofocus = "true" onkeypress="keyPress(event)">
+        <span class="icon is-small is-left">
+          <i class="fas fa-film"></i>
+        </span>
       </div>
 			<!-- End of search bar -->
 
@@ -76,6 +82,8 @@
             </figure>
 						
           </div>
+          <div id="currentMovie">
+          </div>
           <div class="content">
 						<iframe
 							class="ytLink"
@@ -88,9 +96,16 @@
 							</iframe>
 							</div>
           </div>
+          <div id="relatedMovies">
+          </div>
         </div>
       </div>
 			<!-- End of test card -->
+
+      <!--Random Movie Button-->
+      <div class="container is-fluid">
+        <button id="randomSelect" class="button is-normal">Random Movie Suggestion</button>
+      </div>
 
     </main>
     <script

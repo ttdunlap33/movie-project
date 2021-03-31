@@ -1,45 +1,127 @@
-var apiKeyTaste = "406643-ThomasTD-KL55K15Z";
-var apiKeyPoster = "5cecfea7";
-var movieName = "Spider-Man";
+var inputField = document.getElementById("movieInput")
+// var inputField = document.querySelector("#movieInput")
 
-function getDataTaste () {
-	var getTasteUrl = `https://tastedive.com/api/similar?info=1&limit=5&q=${movieName}&k=${apiKeyTaste}`;
+const apiKeyTaste = "406643-ThomasTD-KL55K15Z";
+const apiKeyPoster = "5cecfea7";
+// var movieName = "Spider-Man";
+
+function keyPress(event) {
+	if (event.keyCode === 13) {
+		getMovieName()
+	}
+}
+
+function getMovieName() {
+	var movieName = inputField.value
+	getDataTaste(movieName)
+}
+
+function getDataTaste (movieName) {
+	var getTasteUrl = `https://tastedive.com/api/similar`;
+	// var getTasteUrl = `https://tastedive.com/api/similar?info=1&limit=5&q=${movieName}&k=${apiKeyTaste}`;
+
+	// https://github.com/HoodiesUnited/music-app/blob/master/taste-dive-examples.html
 
 	$.ajax({
 		url: getTasteUrl,
-		method: 'GET'
+		type: 'GET', 
+		data: {
+			k: apiKeyTaste,
+			q: movieName,
+			type: "movie",
+			info: 1,
+			limit: 5,
+		},
+		dataType: "jsonp"
 	}).then (function (response) {
-		console.log("Taste");
-		console.log(response);
-		console.log(response.Similar.Info[0].yUrl);
-		$('.ytLink').attr('src', `${response.Similar.Info[0].yUrl}`)
+		document.getElementById('relatedMovies').innerHTML = ''
+
+		var similar = response.Similar
+		var info = similar.Info[0]
+		var type = info.Type
+		if (type !== "unknown") {
+			var name = info.Name
+			var wTeaser = info.wTeaser
+			var wUrl = info.wUrl
+			var yID = info.yID
+			var yUrl = info.yUrl
+
+			// Set youtube teaser
+			// $('#currentMovie').attr()
+			$('.ytLink').attr('src', `${yUrl}`)
+
+			var results = similar.Results
+			for (i = 0; i < results.length; i++) {
+				var currentResult = results[i];
+
+				var currentName = currentResult.Name
+				var currentWTeaser = currentResult.wTeaser
+				var currentWUrl = currentResult.wUrl
+				var currentYID = currentResult.yID
+				var currentYUrl = currentResult.yUrl
+
+				// Code to display related movies here
+				var relatedDiv = document.createElement("div")
+				// h3
+				var relatedName = document.createElement("h6")
+				relatedName.innerText = currentName
+				relatedDiv.append(relatedName)
+				// p
+				var relatedWTeaser = document.createElement("p")
+				relatedWTeaser.innerText = currentWTeaser
+				relatedDiv.append(relatedWTeaser)
+				// a
+				var relatedWUrl = document.createElement("a")
+				relatedWUrl.innerText = currentWUrl
+				relatedDiv.append(relatedWUrl)
+				// p
+				// var relatedYID = document.createElement("p")
+				// relatedYID.innerText = currentYID
+				// relatedDiv.append(relatedYID)
+				// iframe
+				var relatedClip = document.createElement("iframe")
+				relatedClip.setAttribute("width", "500")
+				relatedClip.setAttribute("height", "300")
+				relatedClip.setAttribute("frameborder", "0")
+				relatedClip.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture")
+				relatedClip.setAttribute("allowfullscreen", "")
+				relatedClip.setAttribute("src", currentYUrl)
+				relatedDiv.append(relatedClip)
+				
+				$('#relatedMovies').append(relatedDiv)
+
+				// var prevSearch = function(prevSearch){
+ 
+				// 	prevSearchEl = document.createElement("button");
+				// 	prevSearchEl.textContent = prevSearch;
+				// 	prevSearchEl.classList = "d-flex w-100 btn-light border p-3";
+				// 	prevSearchEl.setAttribute("data-city",prevSearch)
+				// 	prevSearchEl.setAttribute("type", "submit");
+				
+				// 	prevSearchBtn.prepend(prevSearchEl);
+				// }
+				
+			}
+		}
+
+
 	} )
+
+	getDataPoster(movieName)
 };
 
 
-
-function getDataPoster () {
+function getDataPoster (movieName) {
 	var getTasteUrl = `http://www.omdbapi.com/?t=${movieName}&apikey=${apiKeyPoster}`;
 	
 	$.ajax({
 		url: getTasteUrl,
-		method: 'GET'
+		method: 'GET',
 	}).then (function (response) {
-		// console.log("Poster");
-		console.log(response.Poster);
-		// console.log($('.posterScr').attr('src'));
 		$('.card-header').text(`${response.Title}`)
 		$('.posterScr').attr('src', `${response.Poster}`)
 	} )
 };
-
-getDataPoster();
-getDataTaste();
-
-
-
-
-
 
 
 //https://tastedive.com/api/similar?{query string}
