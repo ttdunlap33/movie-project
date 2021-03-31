@@ -44,6 +44,7 @@ body {
 .cardContainer {
   padding: 10px 10px 10px 10px;
 
+
 }
 
 .cardContainer .card {
@@ -64,4 +65,9 @@ iframe {
 
 a {
   padding: 20px;
+}
+
+
+.input {
+  width: 50vw;
 }
