@@ -28,11 +28,40 @@ body {
 
 
 .card {
-  margin: 15%;
-  border-radius: 30px;
+  flex-direction: column;
+  margin: 25%;
 }
 
 .posterScr {
-    width: 128px 128px;
+    width: 100px 100px;
 }
 
+.card-header {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.cardContainer {
+  padding: 10px 10px 10px 10px;
+
+}
+
+.cardContainer .card {
+  font-weight: bold;
+  align-items: center;
+  padding: 10px;
+}
+
+.cardContainer .div {
+  text-align: center;
+  padding: 25px;
+}
+
+iframe {
+  padding: 20px;
+  display: flex;
+}
+
+a {
+  padding: 20px;
+}
