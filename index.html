@@ -57,8 +57,11 @@
 			<!-- <end of landing card -->
 			
 			<!-- Search Bar  -->
-      <div class="control">
-        <input id="movieInput" class="input is-rounded is-small" type="text" placeholder="Type a movie name then press enter..." autofocus = "true">
+      <div class="container is-large control has-icons-left">  
+        <input id="movieInput" class="input is-rounded is-medium" type="text" placeholder="Type a movie then press enter..." autofocus = "true" onkeypress="keyPress(event)">
+        <span class="icon is-small is-left">
+          <i class="fas fa-film"></i>
+        </span>
       </div>
 			<!-- End of search bar -->
 
@@ -94,6 +97,7 @@
 			<!-- End of test card -->
 
 			<div class="cardContainer"></div>
+
 
     </main>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
