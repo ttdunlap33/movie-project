@@ -4,28 +4,24 @@ body {
   background-repeat: cover;
   background-position: top center;
 }
-	/* height: 100vh; */
+/* height: 100vh; */
 
+.card {
+  margin: 15%;
+}
 
+.card button:hover {
+  box-shadow: 2px solid rgb(59, 59, 59);
+}
 
-
- .card {
-     margin: 15%;
- }
-
- .card button:hover {
-     box-shadow: 2px solid rgb(59, 59, 59);
- }
-
- .title {
-    color: black;
- }
+.title {
+  color: black;
+}
 
 .navbar {
   border-bottom: 2px solid black;
   background-color: white;
 }
-
 
 .card {
   flex-direction: column;
@@ -33,7 +29,7 @@ body {
 }
 
 .posterScr {
-    width: 100px 100px;
+  width: 100px 100px;
 }
 
 .card-header {
@@ -43,8 +39,6 @@ body {
 
 .cardContainer {
   padding: 10px 10px 10px 10px;
-
-
 }
 
 .cardContainer .card {
@@ -66,7 +60,6 @@ iframe {
 a {
   padding: 20px;
 }
-
 
 .input {
   width: 50vw;

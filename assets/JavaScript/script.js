@@ -66,10 +66,10 @@ function getDataTaste (movieName, saveMovie) {
 	}).then (function (response) {
 		
 		var similar = response.Similar
-		console.log(similar);
 		var info = similar.Info[0]
 		var type = info.Type
 		if (type !== "unknown") {
+<<<<<<< HEAD
 
 			if (saveMovie) {
 				saveSearch(movieName);
@@ -81,9 +81,10 @@ function getDataTaste (movieName, saveMovie) {
 			// var wUrl = info.wUrl
 			// var yID = info.yID
 			// var yUrl = info.yUrl
+=======
+>>>>>>> 129587877ab5713c27767cb5b2f2b94f52066fd3
 
 			var results = similar.Results
-			console.log(results);
 			for (i = 0; i < results.length; i++) {
 				var currentResult = results[i];
 
@@ -92,8 +93,6 @@ function getDataTaste (movieName, saveMovie) {
 				var currentWUrl = currentResult.wUrl
 				var currentYID = currentResult.yID
 				var currentYUrl = currentResult.yUrl
-
-				getDataPoster(currentName)
 
 				// Code to display related movies here
 				var divCardEl = $('<div>');
@@ -119,7 +118,10 @@ function getDataTaste (movieName, saveMovie) {
 
 				var divImg = $('<img>');
 				divImg.attr('class', 'posterSrc');
-				divCardContent.append(divImg);
+				divImg.data('movieName', currentName );
+				divImg.data('index', i );
+				console.log(divImg.data('index'));
+				divFigure.append(divImg);
 
 				var pTeaser = $('<p>');
 				pTeaser.text(currentWTeaser);
@@ -138,14 +140,13 @@ function getDataTaste (movieName, saveMovie) {
 				relatedClip.setAttribute("allowfullscreen", "")
 				relatedClip.setAttribute("src", currentYUrl)
 				divCardContent.append(relatedClip);
-				
 			}
+			getDataPoster();
 		}
 	} )
-
-	// getDataPoster();
 };
 
+<<<<<<< HEAD
 function getDataPoster (movieName) {
 	var getTasteUrl = `https://www.omdbapi.com/?t=${movieName}&apikey=${apiKeyPoster}`;
 	
@@ -156,14 +157,92 @@ function getDataPoster (movieName) {
 		
 	} )
 };
+=======
+var postArray = [];
+function getDataPoster () {
+	postArray = [];
+	// console.log(posterArray);
+	$('.posterSrc').each(function(){
+		var movieHolder = $(this).data('movieName');
+		// console.log(movieHolder);
+>>>>>>> 129587877ab5713c27767cb5b2f2b94f52066fd3
+
+		var getPosterUrl = `https://www.omdbapi.com/?t=${movieHolder}&apikey=${apiKeyPoster}`;
+		
+		$.ajax({
+			url: getPosterUrl,
+			method: 'GET'
+		}).then (function(resPoster) {
+			console.log(resPoster);
+			postObj = {
+				title: resPoster.Title,
+				rated: resPoster.Rated,
+				poster: resPoster.Poster,
+				percent: resPoster.Ratings[1].Value
+			};
+			postArray.push(postObj);
+		})
+	})//end of .each
+
+	setTimeout(function(){
+		console.log(postArray);
+		$('img').each(function(index){
+			if (index == $(this).data('index')) {
+				// && $(this).data('movieName') === $(this)
+				// console.log(index + " " +$(this).data('movieName'));
+				$(this).attr('src', postArray[index].poster);
+			}
+		})
+	},2000);
+	};
+
+// function getDataPoster () {
+// 	$('.posterSrc').each(function(){
+// 		var movieHolder = $(this).data('movieName');
+// 		console.log(movieHolder);
+// 		var getPosterUrl = `https://www.omdbapi.com/?t=${movieHolder}&apikey=${apiKeyPoster}`;
+
+// 		$.when(
+// 			$.ajax({
+// 			url: getPosterUrl,
+// 			method: 'GET'
+// 		}).then (function(resPoster) {
+// 			console.log(resPoster);
+// 			}))
 
 
-// $('#movieInput').keypress(function (event) {
-// 	if (event.which == 13) {
-// 		console.log("pressed enter");
-// 		console.log($(this).val());
-// 	}
-// });
+// 			})
+// 	};
+
+//This one pulls but wrong poster---------------------------------------------
+// function getDataPoster () {
+// 	$('.posterSrc').each(function(){
+// 		var movieHolder = $(this).data('movieName');
+// 		console.log(movieHolder);
+// 		var getPosterUrl = `https://www.omdbapi.com/?t=${movieHolder}&apikey=${apiKeyPoster}`;
+// 			$.ajax({
+// 				url: getPosterUrl,
+// 				method: 'GET'
+// 			}).then (function(resPoster) {
+// 				console.log(resPoster);
+// 				if($('.posterSrc').data('movieName') == resPoster.Title) {
+// 					console.log(resPoster.Title);
+// 					console.log($('.posterSrc').data('movieName'));
+// 					$('.posterSrc').attr('src', resPoster.Poster)
+// 				}
+// 				})
+// 			})
+// 	};
+
+
+
+	// var posterArray = [];
+	// posterArray.push(responsePoster.Poster);
+	// console.log(posterArray);
+	// console.log($('.card-header').siblings('.posterSrc').data());
+	// $('.card-header').siblings('.posterSrc').attr('src', responsePoster.Poster);
+	// $(this).siblings('.posterSrc').attr('src', responsePoster.Poster);
+
 
 
 //https://tastedive.com/api/similar?{query string}
