@@ -34,15 +34,15 @@ function getDataTaste (movieName) {
 		var info = similar.Info[0]
 		var type = info.Type
 		if (type !== "unknown") {
-			var name = info.Name
-			var wTeaser = info.wTeaser
-			var wUrl = info.wUrl
-			var yID = info.yID
-			var yUrl = info.yUrl
+			// var name = info.Name
+			// var wTeaser = info.wTeaser
+			// var wUrl = info.wUrl
+			// var yID = info.yID
+			// var yUrl = info.yUrl
 
 			// Set youtube teaser
 			// $('#currentMovie').attr()
-			$('.ytLink').attr('src', `${yUrl}`)
+			// $('.ytLink').attr('src', `${yUrl}`)
 
 			var results = similar.Results
 			for (i = 0; i < results.length; i++) {
@@ -54,6 +54,8 @@ function getDataTaste (movieName) {
 				var currentWUrl = currentResult.wUrl
 				var currentYID = currentResult.yID
 				var currentYUrl = currentResult.yUrl
+
+				getDataPoster(currentName)
 
 				// Code to display related movies here
 				// var relatedDiv = document.createElement("div")
@@ -115,8 +117,10 @@ function getDataTaste (movieName) {
 
 	} )
 
-	getDataPoster(movieName)
+	
 };
+
+
 
 
 function getDataPoster (movieName) {
