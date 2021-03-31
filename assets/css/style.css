@@ -3,6 +3,7 @@ body {
   background-image: url("/assets/images/graystone.jpg");
   background-repeat: cover;
   background-position: top center;
+	/* height: 100vh; */
 }
 
 .navbar {
