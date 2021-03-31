@@ -1,10 +1,11 @@
 body {
   font-family: "Ubuntu, serif";
   background-image: url("../images/graystone.jpg");
+  background-repeat: cover;
   background-position: top center;
 }
 	/* height: 100vh; */
-}
+
 
 
 
