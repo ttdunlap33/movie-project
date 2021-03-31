@@ -1,10 +1,13 @@
 body {
   font-family: "Ubuntu, serif";
-  background-image: url("/assets/images/graystone.jpg");
-  background-repeat: cover;
+  background-image: url("../images/graystone.jpg");
   background-position: top center;
+}
 	/* height: 100vh; */
 }
+
+
+
  .card {
      margin: 15%;
  }
