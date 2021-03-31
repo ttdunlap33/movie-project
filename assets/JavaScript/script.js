@@ -101,11 +101,8 @@ function getDataTaste (movieName) {
 		}
 	} )
 
-	
+	// getDataPoster();
 };
-
-
-
 
 function getDataPoster (movieName) {
 	var getTasteUrl = `https://www.omdbapi.com/?t=${movieName}&apikey=${apiKeyPoster}`;
@@ -114,10 +111,7 @@ function getDataPoster (movieName) {
 		url: getTasteUrl,
 		method: 'GET'
 	}).then (function (responsePoster) {
-		// $('.card-header').text(`${responsePoster.Title}`);
-		// $('.posterScr').attr('src', `${responsePoster.Poster}`);
-		// $('.card').attr('style', 'display: block');
-		divImg
+
 	} )
 };
 
