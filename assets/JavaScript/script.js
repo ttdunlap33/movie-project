@@ -34,11 +34,11 @@ function getDataTaste (movieName) {
 		var info = similar.Info[0]
 		var type = info.Type
 		if (type !== "unknown") {
-			var name = info.Name
-			var wTeaser = info.wTeaser
-			var wUrl = info.wUrl
-			var yID = info.yID
-			var yUrl = info.yUrl
+			// var name = info.Name
+			// var wTeaser = info.wTeaser
+			// var wUrl = info.wUrl
+			// var yID = info.yID
+			// var yUrl = info.yUrl
 
 			var results = similar.Results
 			console.log(results);
@@ -50,6 +50,8 @@ function getDataTaste (movieName) {
 				var currentWUrl = currentResult.wUrl
 				var currentYID = currentResult.yID
 				var currentYUrl = currentResult.yUrl
+
+				getDataPoster(currentName)
 
 				// Code to display related movies here
 				var divCardEl = $('<div>');
@@ -99,8 +101,10 @@ function getDataTaste (movieName) {
 		}
 	} )
 
-	getDataPoster(movieName)
+	
 };
+
+
 
 
 function getDataPoster (movieName) {
