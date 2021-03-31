@@ -1,13 +1,9 @@
 body {
-    font-family: "Ubuntu, serif";
- }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-
-.hero {
-  background-image: url("https://previews.123rf.com/images/karidesign/karidesign1605/karidesign160500026/56077700-gray-stone-background.jpg");
-} 
-
-.navbar{
-    border-bottom: 5px solid black;
+  font-family: "Ubuntu, serif";
+  background-image: url("/assets/images/graystone.jpg");
+  background-repeat: cover;
+  background-position: top center;
+	/* height: 100vh; */
 }
  .card {
      margin: 15%;

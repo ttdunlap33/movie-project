@@ -1,20 +1,14 @@
-var inputField = document.getElementById("movieInput")
-// var inputField = document.querySelector("#movieInput")
-
 const apiKeyTaste = "406643-ThomasTD-KL55K15Z";
 const apiKeyPoster = "5cecfea7";
-// var movieName = "Spider-Man";
 
-function keyPress(event) {
-	if (event.keyCode === 13) {
-		getMovieName()
+var cardCont = $('.cardContainer');
+$('#movieInput').keypress(function (event) {
+	if (event.which == 13) {
+		var movieName = $(this).val();
+		getDataTaste(movieName);
+		cardCont.empty();
 	}
-}
-
-function getMovieName() {
-	var movieName = inputField.value
-	getDataTaste(movieName)
-}
+});
 
 function getDataTaste (movieName) {
 	var getTasteUrl = `https://tastedive.com/api/similar`;
@@ -34,7 +28,7 @@ function getDataTaste (movieName) {
 		},
 		dataType: "jsonp"
 	}).then (function (response) {
-		document.getElementById('relatedMovies').innerHTML = ''
+		// document.getElementById('relatedMovies').innerHTML = ''
 
 		var similar = response.Similar
 		var info = similar.Info[0]
@@ -52,6 +46,7 @@ function getDataTaste (movieName) {
 
 			var results = similar.Results
 			for (i = 0; i < results.length; i++) {
+				console.log(results.length);
 				var currentResult = results[i];
 
 				var currentName = currentResult.Name
@@ -61,19 +56,32 @@ function getDataTaste (movieName) {
 				var currentYUrl = currentResult.yUrl
 
 				// Code to display related movies here
-				var relatedDiv = document.createElement("div")
+				// var relatedDiv = document.createElement("div")
+				var divCardEl = $('<div>');
+				divCardEl.attr('class', 'card');
+				cardCont.append(divCardEl);
 				// h3
-				var relatedName = document.createElement("h6")
-				relatedName.innerText = currentName
-				relatedDiv.append(relatedName)
+				// var relatedName = document.createElement("h6")
+				var divName = $('<div>');
+				// relatedName.innerText = currentName
+				divName.text(currentName);
+				// relatedDiv.append(relatedName)
+				divCardEl.append(divName)
 				// p
-				var relatedWTeaser = document.createElement("p")
-				relatedWTeaser.innerText = currentWTeaser
-				relatedDiv.append(relatedWTeaser)
+				// var relatedWTeaser = document.createElement("p")
+				var pTeaser = $('<p>');
+				// relatedWTeaser.innerText = currentWTeaser
+				pTeaser.text(currentWTeaser);
+				// relatedDiv.append(relatedWTeaser)
+				divCardEl.append(pTeaser)
 				// a
-				var relatedWUrl = document.createElement("a")
-				relatedWUrl.innerText = currentWUrl
-				relatedDiv.append(relatedWUrl)
+				// var relatedWUrl = document.createElement("a")
+				var aWikiUrl = $('<a>');
+				// relatedWUrl.innerText = currentWUrl
+				aWikiUrl.text(`${movieName} Wikipedia Article`)
+				aWikiUrl.attr('src', currentWUrl);
+				// relatedDiv.append(relatedWUrl)
+				divCardEl.append(aWikiUrl);
 				// p
 				// var relatedYID = document.createElement("p")
 				// relatedYID.innerText = currentYID
@@ -86,12 +94,12 @@ function getDataTaste (movieName) {
 				relatedClip.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture")
 				relatedClip.setAttribute("allowfullscreen", "")
 				relatedClip.setAttribute("src", currentYUrl)
-				relatedDiv.append(relatedClip)
+				divCardEl.append(relatedClip);
 				
-				$('#relatedMovies').append(relatedDiv)
+				// $('#relatedMovies').append(relatedDiv)
 
 				// var prevSearch = function(prevSearch){
- 
+
 				// 	prevSearchEl = document.createElement("button");
 				// 	prevSearchEl.textContent = prevSearch;
 				// 	prevSearchEl.classList = "d-flex w-100 btn-light border p-3";
@@ -112,16 +120,26 @@ function getDataTaste (movieName) {
 
 
 function getDataPoster (movieName) {
-	var getTasteUrl = `http://www.omdbapi.com/?t=${movieName}&apikey=${apiKeyPoster}`;
+	var getTasteUrl = `https://www.omdbapi.com/?t=${movieName}&apikey=${apiKeyPoster}`;
 	
 	$.ajax({
 		url: getTasteUrl,
-		method: 'GET',
-	}).then (function (response) {
-		$('.card-header').text(`${response.Title}`)
-		$('.posterScr').attr('src', `${response.Poster}`)
+		method: 'GET'
+	}).then (function (responsePoster) {
+		$('.card-header').text(`${responsePoster.Title}`);
+		$('.posterScr').attr('src', `${responsePoster.Poster}`);
+		$('.card').attr('style', 'display: block');
 	} )
+
 };
+
+
+// $('#movieInput').keypress(function (event) {
+// 	if (event.which == 13) {
+// 		console.log("pressed enter");
+// 		console.log($(this).val());
+// 	}
+// });
 
 
 //https://tastedive.com/api/similar?{query string}
