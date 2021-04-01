@@ -24,7 +24,7 @@ function getDataTaste (movieName) {
 			q: movieName,
 			type: "movie",
 			info: 1,
-			limit: 6,
+			limit: 3,
 		},
 		dataType: "jsonp"
 	}).then (function (response) {
@@ -69,19 +69,19 @@ function getDataTaste (movieName) {
 				var divImg = $('<img>');
 				divImg.attr('class', 'posterSrc');
 				divImg.data('movieName', currentName );
-				divImg.data('index', i );
-				console.log(divImg.data('index'));
+				// divImg.data('index', i );
+				// console.log(divImg.data('index'));
 				divFigure.append(divImg);
 
 				var pTeaser = $('<p>');
 				pTeaser.text(currentWTeaser);
 				divCardContent.append(pTeaser)
-
+				
 				var aWikiUrl = $('<a>');
 				aWikiUrl.text(`${currentName} Wikipedia Article`)
 				aWikiUrl.attr('src', currentWUrl);
 				divCardContent.append(aWikiUrl);
-
+				
 				var relatedClip = document.createElement("iframe")
 				relatedClip.setAttribute("width", "500")
 				relatedClip.setAttribute("height", "300")
@@ -90,49 +90,99 @@ function getDataTaste (movieName) {
 				relatedClip.setAttribute("allowfullscreen", "")
 				relatedClip.setAttribute("src", currentYUrl)
 				divCardContent.append(relatedClip);
+				console.log(currentName);
 			}
 			getDataPoster();
 		}
 	} )
 };
 
-var postArray = [];
-function getDataPoster () {
-	postArray = [];
-	// console.log(posterArray);
-	$('.posterSrc').each(function(){
-		var movieHolder = $(this).data('movieName');
-		// console.log(movieHolder);
+// var postArray = [];
+// function getDataPoster () {
+// 	postArray = [];
+// 	// console.log(posterArray);
+// 	$('.posterSrc').each(function(){
+// 		var movieHolder = $(this).data('movieName');
+// 		// console.log(movieHolder);
 
-		var getPosterUrl = `https://www.omdbapi.com/?t=${movieHolder}&apikey=${apiKeyPoster}`;
+// 		var getPosterUrl = `https://www.omdbapi.com/?t=${movieHolder}&apikey=${apiKeyPoster}`;
 		
-		$.ajax({
-			url: getPosterUrl,
-			method: 'GET'
-		}).then (function(resPoster) {
-			console.log(resPoster);
-			postObj = {
-				title: resPoster.Title,
-				rated: resPoster.Rated,
-				poster: resPoster.Poster,
-				percent: resPoster.Ratings[1].Value
-			};
-			postArray.push(postObj);
-		})
-	})//end of .each
+// 		$.ajax({
+// 			url: getPosterUrl,
+// 			method: 'GET'
+// 		}).then (function(resPoster) {
+// 			console.log($('.posterSrc').data('movieName'));
 
-	setTimeout(function(){
-		console.log(postArray);
-		$('img').each(function(index){
-			if (index == $(this).data('index')) {
-				// && $(this).data('movieName') === $(this)
-				// console.log(index + " " +$(this).data('movieName'));
-				$(this).attr('src', postArray[index].poster);
-			}
-		})
-	},2000);
-	};
+// 			if ($('.posterSrc').data('movieName') == resPoster.Title) {
 
+// 				$(this).attr('src', resPoster.Poster);
+// 			}
+// 		})
+// 	})//end of .each
+// 	};
+
+// pulls but it pulls random order------------------------------------------- 
+// var postArray = [];
+// function getDataPoster () {
+// 	postArray = [];
+// 	// console.log(posterArray);
+// 	$('.posterSrc').each(function(){
+// 		var movieHolder = $(this).data('movieName');
+// 		// console.log(movieHolder);
+
+// 		var getPosterUrl = `https://www.omdbapi.com/?t=${movieHolder}&apikey=${apiKeyPoster}`;
+		
+// 		$.ajax({
+// 			url: getPosterUrl,
+// 			method: 'GET'
+// 		}).then (function(resPoster) {
+// 			// console.log(resPoster);
+// 			postObj = {
+// 				title: resPoster.Title,
+// 				rated: resPoster.Rated,
+// 				poster: resPoster.Poster,
+// 				percent: resPoster.Ratings[1].Value
+// 			};
+// 			postArray.push(postObj);
+// 		})
+// 	})//end of .each
+
+// 	setTimeout(function(){
+// 		console.log(postArray);
+// 		$('img').each(function(index){
+// 			if (index == $(this).data('index')) {
+// 				// console.log(index + " " +$(this).data('movieName'));
+// 				$(this).attr('src', postArray[index].poster);
+// 			}
+// 		})
+// 	},1000);
+// 	};
+
+// tried with for loop above----------------------------------------------
+// var postArray = [];
+// function stashArray(currentName) {
+// 	var getPosterUrl = `https://www.omdbapi.com/?t=${currentName}&apikey=${apiKeyPoster}`;
+// 	$.ajax({
+// 		url: getPosterUrl,
+// 		method: 'GET'
+// 	}).then (function(resPoster) {
+// 		var title = resPoster.Title
+// 		var	rated = resPoster.Rated
+// 		var	poster = resPoster.Poster
+// 		var	percent = resPoster.Ratings[1].Value
+// 		postObj = {
+// 			title: title,
+// 			rated: rated,
+// 			poster: poster,
+// 			percent: percent
+// 		};
+// 		postArray.push(postObj);
+// 		console.log(postArray);
+// 	})
+// };
+
+
+// when then fail --------------------------------------------------------
 // function getDataPoster () {
 // 	$('.posterSrc').each(function(){
 // 		var movieHolder = $(this).data('movieName');
@@ -172,7 +222,7 @@ function getDataPoster () {
 // 	};
 
 
-
+// original ------------------------------------------------------------------
 	// var posterArray = [];
 	// posterArray.push(responsePoster.Poster);
 	// console.log(posterArray);
