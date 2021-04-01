@@ -72,7 +72,7 @@ function getDataTaste (movieName) {
 				divCardContent.append(divImgCont);
 
 				var divFigure = $('<figure>');
-				divFigure.attr('class', 'image is-3by4 poster');
+				divFigure.attr('class', 'image is-square poster');
 				divCardContent.append(divFigure);
 
 				var divImg = $('<img>');
