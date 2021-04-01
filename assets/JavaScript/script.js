@@ -5,6 +5,14 @@ var pastSearches = [];
 
 var searchHistoryDiv = document.querySelector("#searchHistory")
 
+//-----Allows the 'switch' to happen once the main card has been clicked-----
+$('.contBtn').on('click', function() {
+	$('.landingCard').attr('style', 'display: none' );
+	$('.searchBar').attr('style', 'display: block' );
+	$('.searchHistory').attr('style', 'display: block' );
+	$('.footer').attr('style', 'display: block');
+});
+
 var cardCont = $('.cardContainer');
 $('#movieInput').keypress(function (event) {
 	if (event.which == 13) {
@@ -35,10 +43,10 @@ function capitalizeName(movieName) {
 	return capitalizedList.join(" ")
 }
 
-function getMovieName() {
-	var movieName = $('#movieInput').val();
-	getDataTaste(movieName);
-}
+// function getMovieName() {
+// 	var movieName = $('#movieInput').val();
+// 	getDataTaste(movieName);
+// }
 
 function addButton(movieName) {
 	prevSearchEl = document.createElement("button");
@@ -94,7 +102,7 @@ function getDataTaste (movieName) {
 	cardCont.empty();
 
 	movieName = capitalizeName(movieName)
-	console.log(movieName)
+	// console.log(movieName)
 
 	var getTasteUrl = `https://tastedive.com/api/similar`;
 	// var getTasteUrl = `https://tastedive.com/api/similar?info=1&limit=5&q=${movieName}&k=${apiKeyTaste}`;
@@ -109,12 +117,12 @@ function getDataTaste (movieName) {
 			q: movieName,
 			type: "movie",
 			info: 1,
-			limit: 3,
+			limit: 2,
 		},
 		dataType: "jsonp"
 	}).then (function (response) {
 
-		console.log(response)
+		// console.log(response)
 		
 		var similar = response.Similar
 		var results = similar.Results
@@ -134,53 +142,76 @@ function getDataTaste (movieName) {
 				var currentName = currentResult.Name
 				var currentWTeaser = currentResult.wTeaser
 				var currentWUrl = currentResult.wUrl
-				var currentYID = currentResult.yID
+				// var currentYID = currentResult.yID
 				var currentYUrl = currentResult.yUrl
 
-				// Code to display related movies here
+				//The main Card container
 				var divCardEl = $('<div>');
-				divCardEl.attr('class', 'card');
+				divCardEl.attr('class', 'card mainCardCont');
 				cardCont.append(divCardEl);
 
+				//All things that live in the card Bulma brings padding
 				var divCardContent = $('<div>');
 				divCardContent.attr('class', 'card-content');
 				divCardEl.append(divCardContent);
 
+				//The title of the movie - attr sets bulma
 				var divName = $('<div>');
-				divName.attr('class', 'card-header');
+				divName.attr('class', 'card-header is-size-2 has-text-centered');
 				divName.text(currentName);
 				divCardContent.append(divName)
 
+				//Add column container
+				var divColumnsMain = $('<div>');
+				divColumnsMain.attr('class', 'columns is-desktop')
+				divCardContent.append(divColumnsMain);
+				//Add column one
+				var divColumnOne = $('<div>');
+				divColumnOne.attr('class', 'column')
+				divColumnsMain.append(divColumnOne);
+
+				//Container of figure
 				var divImgCont = $('<div>');
-				divImgCont.attr('class', 'card-image');
-				divCardContent.append(divImgCont);
+				divImgCont.attr('class', 'card-image is-flex');
+				divColumnOne.append(divImgCont);
 
+				//Container of Img
 				var divFigure = $('<figure>');
-				divFigure.attr('class', 'image is-3by4 poster');
-				divCardContent.append(divFigure);
+				divFigure.attr('class', 'poster');
+				divImgCont.append(divFigure);
 
-
+				//Img el that pulls poster 
 				var divImg = document.createElement("img")
 				divImg.setAttribute("class", "posterSrc")
-
-				// var divImg = $('<img>');
-				// divImg.attr('class', 'posterSrc');
-				// divImg.data('movieName', currentName );
-				// divImg.data('index', i );
-				// console.log(divImg.data('index'));
-
+				$(divImg).data('rating', i);
+				$(divImg).data('rotten', i);
 				getNewDataPoster(currentName, divImg)
 				divFigure.append(divImg);
 
+				//Add column two
+				var divColumnTwo = $('<div>');
+				divColumnTwo.attr('class', 'column')
+				divColumnsMain.append(divColumnTwo);
+
+				//The text explaining plot
 				var pTeaser = $('<p>');
+				pTeaser.attr('class', 'movieText');
 				pTeaser.text(currentWTeaser);
-				divCardContent.append(pTeaser)
-				
+				divColumnTwo.append(pTeaser)
+
+				//The link to the wiki for the movie
 				var aWikiUrl = $('<a>');
 				aWikiUrl.text(`${currentName} Wikipedia Article`)
 				aWikiUrl.attr('href', currentWUrl);
-				divCardContent.append(aWikiUrl);
-				
+				aWikiUrl.attr('class', 'wikiLink  is-size-7 has-text-centered');
+				divColumnTwo.append(aWikiUrl);
+
+				//YT div for responsive
+				var divYtCont = $('<div>');
+				divYtCont.attr('class', 'video-container');
+				divColumnTwo.append(divYtCont);
+
+				//YT embed
 				var relatedClip = document.createElement("iframe")
 				relatedClip.setAttribute("width", "500")
 				relatedClip.setAttribute("height", "300")
@@ -188,14 +219,14 @@ function getDataTaste (movieName) {
 				relatedClip.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture")
 				relatedClip.setAttribute("allowfullscreen", "")
 				relatedClip.setAttribute("src", currentYUrl)
-				divCardContent.append(relatedClip);
-				console.log(currentName);
+				divYtCont.append(relatedClip);
 			}
-			// getDataPoster();
 		}
 	} )
 };
 
+//-----Will grab the poster for the movie when hit in for loop-----
+// posterArray = [];
 function getNewDataPoster(movieName, imgElement) {
 	var getPosterUrl = `https://www.omdbapi.com/?t=${movieName}&apikey=${apiKeyPoster}`;
 	$.ajax({
@@ -203,8 +234,30 @@ function getNewDataPoster(movieName, imgElement) {
 		method: 'GET'
 	}).then (function(resPoster) {
 		imgElement.src = resPoster.Poster
-	})
-}
+		// testObj = {
+			// 	title: resPoster.Title
+			// };
+			// posterArray.push(testObj);
+			// console.log(posterArray);
+		});
+	};
+
+	//-----Called when history button is clicked for a movie-----
+	var prevSearchHandler = function(event){
+			var movie = event.target.getAttribute("movie")
+			if (movie){
+			// Set the movie input to be our movie
+			$('#movieInput').val(movie)
+					getDataTaste(movie);
+			}
+	}
+
+searchHistoryDiv.addEventListener("click", prevSearchHandler)
+
+loadSearchHistory();
+
+
+//-----Notes and Other code fails-----
 
 // var postArray = [];
 // function getDataPoster () {
@@ -330,15 +383,6 @@ function getNewDataPoster(movieName, imgElement) {
 // 	},2000);
 // 	};
 
-// Called when clicking search button
-var prevSearchHandler = function(event){
-    var movie = event.target.getAttribute("movie")
-    if (movie){
-		// Set the movie input to be our movie
-		$('#movieInput').val(movie)
-        getDataTaste(movie);
-    }
-}
 
 // original ------------------------------------------------------------------
 	// var posterArray = [];
@@ -390,6 +434,4 @@ var prevSearchHandler = function(event){
 //         }
 //     ]
 // }
-searchHistoryDiv.addEventListener("click", prevSearchHandler)
 
-loadSearchHistory();
