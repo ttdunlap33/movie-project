@@ -177,14 +177,8 @@ function getDataTaste (movieName) {
 
 				//Container of Img
 				var divFigure = $('<figure>');
-<<<<<<< HEAD
-				divFigure.attr('class', 'image is-3by2 poster');
-				divCardContent.append(divFigure);
-
-=======
 				divFigure.attr('class', 'poster');
 				divImgCont.append(divFigure);
->>>>>>> 40d3e930428d4de120fac03a3315cc79f94de2e5
 
 				//Img el that pulls poster 
 				var divImg = document.createElement("img")

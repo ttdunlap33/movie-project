@@ -116,36 +116,6 @@ a {
   overflow: hidden;
 }
 
-<<<<<<< HEAD
-.card-content {
-  width: auto;
-  height: auto;  
-
-}
-
-.cardContainer .div {
-  text-align: center;
-  padding: 25px;
-
-}
-
-.PosterSrc {
-  padding-bottom: 10px;
-  image-resolution: from-image;
-  image-resolution: 300dpi;
-}
-
-iframe {
-  padding: 30px;
-  display: flex;
-  width: -webkit-fill-available;
-  height: 65vh;
-  border: 2px solid black;
-  margin: 10px 10px 10px 10px;
-  background-color: black;
-}
-
-=======
 /* This is needed for the flex YT embed */
 .video-container iframe,
 .video-container object,
@@ -165,7 +135,6 @@ iframe {
 @media (min-width: 481px) {
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
 }
->>>>>>> 40d3e930428d4de120fac03a3315cc79f94de2e5
 
 @media (min-width: 641px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
