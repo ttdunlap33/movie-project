@@ -1,59 +1,122 @@
+/*-----Element Selectors----- */
 body {
   font-family: "Ubuntu, serif";
   background-image: url("../images/graystone.jpg");
   background-repeat: cover;
   background-position: top center;
+  line-height: 1.5;
 }
-/* height: 100vh; */
+main {
+  font-family: "Montserrat", sans-serif;
+}
+iframe {
+  padding: 20px;
+  display: flex;
+}
 
-.card {
-  margin: 15%;
+/* Stops Bulma from making padding huge may need to just use our own */
+footer {
+  border-top: 2px solid black;
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 25px;
+  min-width: 100vw;
+  padding-top: 5px;
 }
 
-.card button:hover {
-  box-shadow: 2px solid rgb(59, 59, 59);
+a {
+  justify-content: center;
 }
 
-.title {
-  color: black;
-}
+/*-----Class Selectors----- */
 
 .navbar {
   border-bottom: 2px solid black;
   background-color: white;
   font-size: 20px;
 }
+/* General placement of things */
+.searchBar {
+  margin-top: 85px;
+}
+.searchHistory {
+  margin-top: 15px;
+}
+.hero .landingCard {
+  margin-top: 115px;
+}
 
+/* controls the size of the card using margin at the moment */
 .card {
   flex-direction: column;
-  margin: 25%;
+  margin-top: 5%;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 10%;
 }
 
+/* Positions the container for all the cards from the top */
+/* .cardContainer {
+	margin-top: -175px;
+} */
 
+.card-image {
+  justify-content: center;
+}
+.posterSrc {
+  box-shadow: -12px 10px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.mainCardCont {
+  background-color: white;
+  /* box-shadow: 0px 1px 0px #999, 0px 2px 0px #888; */
+  box-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777,
+    0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333,
+    -6px 8px 74px -5px #000000;
+}
+
+/* This applies weight to the card title,
+	 center wont work in class due to Bulma making it display:flex */
 .card-header {
   font-weight: bold;
-  font-size: 30px;
-  text-align: center;
   display: block;
-  padding-bottom: 10px;
-  border: 5px solid black;
-  background-color: antiquewhite;
+  padding-bottom: 15px;
+  text-shadow: 0px -3px 1px #fff, 1px 1px 1px #000;
+  color: black;
+  /* override bulmas box-shadow */
+  box-shadow: none;
 }
 
-.card-header:after {
-  box-shadow: 5px 5px 5px 5px;
+/* Will keep but need to comment out for the moment */
+/* Controls the input box size */
+/* .input {
+  width: 50vw;
+} */
+
+/* Text for the cards font size set by bulma class */
+.movieText {
+	font-size: 10px;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+/* Link for wiki font size set by bulma in class cant get center to work */
+.wikiLink {
+  text-align: center;
 }
 
-.cardContainer {
-  padding: 10px 10px 10px 10px;
+/* This is needed for the flex YT embed */
+.video-container {
+	position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
 }
 
-.cardContainer .card {
-  font-weight: bold;
-  align-items: center;
-  padding: 10px;
-}
-
+<<<<<<< HEAD
 .card-content {
   width: auto;
   height: auto;  
@@ -82,9 +145,38 @@ iframe {
   background-color: black;
 }
 
+=======
+/* This is needed for the flex YT embed */
+.video-container iframe,
+.video-container object,
+.video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
-.input {
-  width: 50vw;
+/* -----May not need I hope -----*/
+@media (min-width: 320px) {
+  /* smartphones, iPhone, portrait 480x320 phones */
+}
+
+@media (min-width: 481px) {
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+}
+>>>>>>> 40d3e930428d4de120fac03a3315cc79f94de2e5
+
+@media (min-width: 641px) {
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+}
+
+@media (min-width: 961px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+}
+
+@media (min-width: 1025px) {
+  /* big landscape tablets, laptops, and desktops */
 }
 
 
