@@ -89,11 +89,10 @@ a {
   box-shadow: none;
 }
 
-/* Will keep but need to comment out for the moment */
-/* Controls the input box size */
-/* .input {
+
+ .input {
   width: 50vw;
-} */
+} 
 
 /* Text for the cards font size set by bulma class */
 .movieText {
