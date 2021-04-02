@@ -46,8 +46,8 @@
 		<!-- landing card -->
     </header>
     <main class="columns is-centered hero">
-      <div class="card">
-        <div class="card-content">
+      <div class="card" role="button">
+        <div class="card-content" >
           <p class="title">This is what we do.</p>
           <button class="button is-small is-outlined is-centered" onclick="getMovieName()">
             Continue
@@ -58,12 +58,17 @@
 			
 			<!-- Search Bar  -->
       <div class="container is-large control has-icons-left">  
-        <input id="movieInput" class="input is-rounded is-medium" type="text" placeholder="Type a movie then press enter..." autofocus = "true" onkeypress="keyPress(event)">
+        <input id="movieInput" class="input is-rounded is-medium" type="text" placeholder="Type a movie then press enter..." autofocus = "true">
         <span class="icon is-small is-left">
           <i class="fas fa-film"></i>
         </span>
       </div>
-			<!-- End of search bar -->
+      <!-- End of search bar -->
+
+      <!-- Search History Buttons -->
+      <div class="container is-large control" id="searchHistory">
+      </div>
+      <!-- End of Search History Buttons -->
 
 			<!-- testcard -->
       <div class="card" style="display: none;">
@@ -97,8 +102,11 @@
       </div>
     </main>
 			<!-- End of test card -->
-
+      <div class="columns is-multiline is-mobile">
+        <div class="column">
 			<div class="cardContainer"></div>
+      </div>
+      </div>
 
 
     

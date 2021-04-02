@@ -4,22 +4,19 @@ body {
   background-repeat: cover;
   background-position: top center;
 }
-	/* height: 100vh; */
+/* height: 100vh; */
 
+.card {
+  margin: 15%;
+}
 
+.card button:hover {
+  box-shadow: 2px solid rgb(59, 59, 59);
+}
 
-
- .card {
-     margin: 15%;
- }
-
- .card button:hover {
-     box-shadow: 2px solid rgb(59, 59, 59);
- }
-
- .title {
-    color: black;
- }
+.title {
+  color: black;
+}
 
 .navbar {
   border-bottom: 2px solid black;
@@ -27,21 +24,24 @@ body {
   font-size: 20px;
 }
 
-
 .card {
   flex-direction: column;
   margin: 25%;
 }
 
-.posterScr {
-    width: 100px 100px;
-}
 
 .card-header {
   font-weight: bold;
   font-size: 30px;
   text-align: center;
   display: block;
+  padding-bottom: 10px;
+  border: 5px solid black;
+  background-color: antiquewhite;
+}
+
+.card-header:after {
+  box-shadow: 5px 5px 5px 5px;
 }
 
 .cardContainer {
@@ -66,13 +66,20 @@ body {
 
 }
 
-iframe {
-  padding: 20px;
-  display: flex;
+.PosterSrc {
+  padding-bottom: 10px;
+  image-resolution: from-image;
+  image-resolution: 300dpi;
 }
 
-a {
-  padding: 20px;
+iframe {
+  padding: 30px;
+  display: flex;
+  width: -webkit-fill-available;
+  height: 65vh;
+  border: 2px solid black;
+  margin: 10px 10px 10px 10px;
+  background-color: black;
 }
 
 
@@ -80,7 +87,4 @@ a {
   width: 50vw;
 }
 
-figure {
-  width: 128px;
-  height: 128px;
-}
+
