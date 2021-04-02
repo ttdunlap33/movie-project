@@ -1,6 +1,6 @@
 #Project-1
 ## Introduction:
- [The Movie Grab](https://github.com/ttdunlap33/movie-project)
+ [The Movie Grab](https://ttdunlap33.github.io/movie-project/)
 
 ## User Story
 ```It’s movie night. I feel I have exhausted all my entertainment options between TV and streaming services.I just want some recommendations based off of my favorite movies. That will display the top 5 recommendations. That also provides a poster, a brief description of the movie from wikipedia and an accompanying movie trailer for my convenience. ```
@@ -22,20 +22,22 @@ Project 1 was to build web applications from scratch. With a team, to conceive a
 * [OMDB API](http://www.omdbapi.com/)
 
 ## Created HTML  Code
-![screenshot](assets/images/htmlthumb.jpg)
+![screenshot](assets/images/moviehtml.JPG)
 
 ### Created CSS
-![screenshot](assets/images/cssthumb.jpg)
+![screenshot](assets/images/moviecss.JPG)
 
 
 ### Created JS, Jquery, Api
-![screenshot](assets/images/jsthumb.jpg)
+![screenshot](assets/images/moviejs.JPG)
 
 
 
 ## Final product screenshots
-![screenshot](assets/images/screenshot1.png)
+![screenshot](assets/images/2ndscreenshot.png)
 
-![screenshot](assets/images/fullscreenshot2.png)
+![screenshot](assets/images/avatar1.png)
 
-![screenshot](assets/images/mobilescreenshot.png)
+![screenshot](assets/images/avatar2.png)
+
+![screenshot](assets/images/avatar3.png)
