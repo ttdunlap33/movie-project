@@ -210,8 +210,8 @@ function getDataTaste (movieName) {
 
 				//YT embed
 				var relatedClip = document.createElement("iframe")
-				relatedClip.setAttribute("width", "500")
-				relatedClip.setAttribute("height", "300")
+				relatedClip.setAttribute("width", "auto")
+				relatedClip.setAttribute("height", "auto")
 				relatedClip.setAttribute("frameborder", "0")
 				relatedClip.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture")
 				relatedClip.setAttribute("allowfullscreen", "")
