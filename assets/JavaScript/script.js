@@ -43,11 +43,6 @@ function capitalizeName(movieName) {
 	return capitalizedList.join(" ")
 }
 
-// function getMovieName() {
-// 	var movieName = $('#movieInput').val();
-// 	getDataTaste(movieName);
-// }
-
 function addButton(movieName) {
 	prevSearchEl = document.createElement("button");
 	prevSearchEl.textContent = movieName;
@@ -58,7 +53,6 @@ function addButton(movieName) {
 	
 	searchHistoryDiv.prepend(prevSearchEl)
 }
-
 
 // loading search history - populate buttons
 function loadSearchHistory() {
@@ -77,9 +71,7 @@ function saveSearch(movieName) {
 	var oldLength = pastSearches.length
 
 	// saving searches to movie var
-
 	// 300, american hustle
-
 	// Trying to add gravity
 
 	// Set = 300, american hustle
@@ -102,12 +94,8 @@ function getDataTaste (movieName) {
 	cardCont.empty();
 
 	movieName = capitalizeName(movieName)
-	// console.log(movieName)
 
 	var getTasteUrl = `https://tastedive.com/api/similar`;
-	// var getTasteUrl = `https://tastedive.com/api/similar?info=1&limit=5&q=${movieName}&k=${apiKeyTaste}`;
-
-	// https://github.com/HoodiesUnited/music-app/blob/master/taste-dive-examples.html
 
 	$.ajax({
 		url: getTasteUrl,
@@ -117,24 +105,16 @@ function getDataTaste (movieName) {
 			q: movieName,
 			type: "movie",
 			info: 1,
-			limit: 2,
+			limit: 6,
 		},
 		dataType: "jsonp"
 	}).then (function (response) {
 
-		// console.log(response)
-		
 		var similar = response.Similar
 		var results = similar.Results
 		if (results.length !== 0) {
 
 			saveSearch(movieName);
-
-			// var name = info.Name
-			// var wTeaser = info.wTeaser
-			// var wUrl = info.wUrl
-			// var yID = info.yID
-			// var yUrl = info.yUrl
 
 			for (i = 0; i < results.length; i++) {
 				var currentResult = results[i];
@@ -157,7 +137,7 @@ function getDataTaste (movieName) {
 
 				//The title of the movie - attr sets bulma
 				var divName = $('<div>');
-				divName.attr('class', 'card-header is-size-2 has-text-centered');
+				divName.attr('class', 'card-header is-size-5-mobile is-size-2 has-text-centered');
 				divName.text(currentName);
 				divCardContent.append(divName)
 
@@ -178,13 +158,19 @@ function getDataTaste (movieName) {
 				//Container of Img
 				var divFigure = $('<figure>');
 				divFigure.attr('class', 'poster');
+				divFigure.attr("class", "toolTip");
 				divImgCont.append(divFigure);
+				
+				//Tool tip text container for rating
+				var spanToolTip = $('<span>');
+				spanToolTip.attr('class', 'toolTipText');
+				getRotten(currentName, spanToolTip);
+				// spanToolTip.text('Hello');
+				divFigure.append(spanToolTip);
 
 				//Img el that pulls poster 
 				var divImg = document.createElement("img")
 				divImg.setAttribute("class", "posterSrc")
-				$(divImg).data('rating', i);
-				$(divImg).data('rotten', i);
 				getNewDataPoster(currentName, divImg)
 				divFigure.append(divImg);
 
@@ -193,18 +179,29 @@ function getDataTaste (movieName) {
 				divColumnTwo.attr('class', 'column')
 				divColumnsMain.append(divColumnTwo);
 
-				//The text explaining plot
-				var pTeaser = $('<p>');
-				pTeaser.attr('class', 'movieText');
-				pTeaser.text(currentWTeaser);
-				divColumnTwo.append(pTeaser)
+				//Level container from Bulma
+				var divLevel = $('<div>');
+				divLevel.attr('class', 'level')
+				divColumnTwo.append(divLevel)
 
 				//The link to the wiki for the movie
 				var aWikiUrl = $('<a>');
 				aWikiUrl.text(`${currentName} Wikipedia Article`)
 				aWikiUrl.attr('href', currentWUrl);
 				aWikiUrl.attr('class', 'wikiLink  is-size-7 has-text-centered');
-				divColumnTwo.append(aWikiUrl);
+				divLevel.append(aWikiUrl);
+
+				//The movie rating ex. PG-13 
+				var divMovieRating = $('<div>');
+				divMovieRating.attr('class', 'movieRating');
+				getMovieRating(currentName, divMovieRating);
+				divLevel.append(divMovieRating);
+
+				//The text explaining plot
+				var pTeaser = $('<p>');
+				pTeaser.attr('class', 'movieText');
+				pTeaser.text(currentWTeaser);
+				divColumnTwo.append(pTeaser)
 
 				//YT div for responsive
 				var divYtCont = $('<div>');
@@ -233,14 +230,40 @@ function getNewDataPoster(movieName, imgElement) {
 		url: getPosterUrl,
 		method: 'GET'
 	}).then (function(resPoster) {
+		//Works every time same exact order
 		imgElement.src = resPoster.Poster
+		// //Same idea yet random
+		// console.log(resPoster.Poster); 
+		// //lines 240-246 will be random every time
+		// console.log(resPoster.Poster);
 		// testObj = {
-			// 	title: resPoster.Title
-			// };
-			// posterArray.push(testObj);
-			// console.log(posterArray);
+		// 		title: resPoster.Title
+		// 	};
+		// 	posterArray.push(testObj);
+
+		// 	console.log(posterArray);
 		});
 	};
+	//Pulls the score for the movie
+	function getRotten(movieName, spanElement) {
+		var getPosterUrl = `https://www.omdbapi.com/?t=${movieName}&apikey=${apiKeyPoster}`;
+		$.ajax({
+			url: getPosterUrl,
+			method: 'GET'
+		}).then (function(resPoster) {
+			$(spanElement).text(`Score: ${resPoster.Ratings[1].Value}`);
+			});
+	}
+	//Pulls the movies rating
+	function getMovieRating(movieName, divElement) {
+		var getPosterUrl = `https://www.omdbapi.com/?t=${movieName}&apikey=${apiKeyPoster}`;
+		$.ajax({
+			url: getPosterUrl,
+			method: 'GET'
+		}).then (function(resPoster) {
+			$(divElement).text(`Rated: ${resPoster.Rated}`);
+			});
+	}
 
 	//-----Called when history button is clicked for a movie-----
 	var prevSearchHandler = function(event){
@@ -258,6 +281,17 @@ loadSearchHistory();
 
 
 //-----Notes and Other code fails-----
+
+// this was for the score to follow the mouse cursor
+// 	var tooltipEl = $('.toolTipText');
+
+// 	window.onmousemove = function (e) {
+//     var x = e.clientX,
+//         y = e.clientY;
+// 				tooltipEl.style.top = (y + 20) + 'px';
+// 				tooltipEl.style.left = (x + 20) + 'px';
+// };
+
 
 // var postArray = [];
 // function getDataPoster () {
