@@ -16,6 +16,12 @@ Project 1 was to build web applications from scratch. With a team, to conceive a
 * Jquery
 * Bulma
 
+## Contributors:
+* Thomas Dunlap
+* Cody Gallagher
+* Trevor Bruce
+* Ariel Marchand
+
 ## Api’s used:
 * [Taste Dive API](https://tastedive-api-documentation.readthedocs.io/en/latest/index.html)
 
@@ -41,3 +47,5 @@ Project 1 was to build web applications from scratch. With a team, to conceive a
 ![screenshot](assets/images/avatar2.png)
 
 ![screenshot](assets/images/avatar3.png)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
